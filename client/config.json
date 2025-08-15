@@ -1,0 +1,36 @@
+{
+    "server": {
+        "url": "http://localhost:3000",
+        "timeout": 30,
+        "retry_attempts": 3,
+        "retry_delay": 2
+    },
+    "client": {
+        "id": "xiaomi-unlock-client",
+        "hmac_secret": "your_hmac_secret_key_here_change_in_production",
+        "user_agent": "XiaomiUnlockClient/1.0.0"
+    },
+    "device": {
+        "detection_timeout": 10,
+        "connection_timeout": 30,
+        "operation_timeout": 300,
+        "auto_detect_modes": ["edl", "brom", "mi_assistant"]
+    },
+    "logging": {
+        "level": "INFO",
+        "file": "logs/client.log",
+        "max_size": "10MB",
+        "backup_count": 5
+    },
+    "ui": {
+        "color_enabled": true,
+        "progress_bar": true,
+        "animations": true
+    },
+    "advanced": {
+        "enable_mock_mode": true,
+        "enable_debug_logging": false,
+        "save_operation_logs": true,
+        "auto_register_devices": true
+    }
+}
