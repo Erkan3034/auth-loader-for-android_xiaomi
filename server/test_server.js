@@ -53,8 +53,8 @@ class ServerTester {
             return {
                 success: false,
                 error: error.message,
-                status: error.response ? .status,
-                data: error.response ? .data
+                status: error.response ? error.response.status : null,
+                data: error.response ? error.response.data : null
             };
         }
     }

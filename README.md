@@ -211,8 +211,3 @@ xiaomi-project/
 - **Comprehensive API documentation**
 - **Installation and deployment guides**
 - **Workflow documentation** with diagrams
-
-## License
-
-This project is for educational and research purposes only.
-

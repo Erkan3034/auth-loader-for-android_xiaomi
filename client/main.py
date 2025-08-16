@@ -86,7 +86,7 @@ Examples:
     try:
         config = Config.load(args.config)
         if args.server_url:
-            config.server_url = args.server_url
+            config.server.url = args.server_url
     except Exception as e:
         logger.error(f"Failed to load configuration: {e}")
         return 1

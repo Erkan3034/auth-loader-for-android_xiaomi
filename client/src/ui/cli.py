@@ -67,7 +67,7 @@ class CLI:
     def error(self, message: str, end: str = "\n"):
         """Display error message."""
         if self.use_rich:
-            self.console.print(f"[red]✗[/red] {message}", end=end, file=sys.stderr)
+            self.console.print(f"[red]✗[/red] {message}", end=end)
         else:
             color = "" if self.no_color else Fore.RED
             print(f"{color}✗ {message}{Style.RESET_ALL}", end=end, file=sys.stderr)

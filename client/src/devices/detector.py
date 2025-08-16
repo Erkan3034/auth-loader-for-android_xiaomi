@@ -5,8 +5,12 @@ import re
 import subprocess
 import time
 from typing import List, Optional, Dict, Any
-import usb.core
-import usb.util
+try:
+    import usb.core
+    import usb.util
+    USB_AVAILABLE = True
+except ImportError:
+    USB_AVAILABLE = False
 import serial.tools.list_ports
 
 from .models import Device, DeviceMode, ChipsetType
@@ -92,6 +96,10 @@ class DeviceDetector:
     async def detect_usb_devices(self) -> List[Device]:
         """Detect devices via USB enumeration."""
         devices = []
+        
+        if not USB_AVAILABLE:
+            self.logger.debug("USB support not available, skipping USB detection")
+            return devices
         
         try:
             # Find all USB devices
@@ -249,6 +257,9 @@ class DeviceDetector:
         """Get USB device information."""
         info = {}
         
+        if not USB_AVAILABLE:
+            return info
+            
         try:
             # Get string descriptors
             if usb_dev.iManufacturer:

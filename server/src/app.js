@@ -2,7 +2,7 @@ const express = require('express');
 const cors = require('cors');
 const helmet = require('helmet');
 const morgan = require('morgan');
-const rateLimit = require('express-rate-limit');
+const { RateLimiterMemory } = require('rate-limiter-flexible');
 require('dotenv').config();
 
 const logger = require('./utils/logger');
@@ -19,19 +19,30 @@ const PORT = process.env.PORT || 3000;
 // Security middleware
 app.use(helmet());
 app.use(cors({
-    origin: process.env.NODE_ENV === 'production' ? process.env.ALLOWED_ORIGINS ? .split(',') : true,
+    origin: process.env.NODE_ENV === 'production' ? process.env.ALLOWED_ORIGINS ?.split(','):true,
     credentials: true
 }));
 
 // Rate limiting
-const limiter = rateLimit({
-    windowMs: parseInt(process.env.RATE_LIMIT_WINDOW_MS) || 15 * 60 * 1000, // 15 minutes
-    max: parseInt(process.env.RATE_LIMIT_MAX_REQUESTS) || 100,
-    message: 'Too many requests from this IP, please try again later.',
-    standardHeaders: true,
-    legacyHeaders: false,
+const rateLimiter = new RateLimiterMemory({
+    keyGenerator: (req) => req.ip,
+    points: parseInt(process.env.RATE_LIMIT_MAX_REQUESTS) || 100, // Number of requests
+    duration: parseInt(process.env.RATE_LIMIT_WINDOW_MS) / 1000 || 900, // Per 15 minutes (in seconds)
 });
-app.use(limiter);
+
+const rateLimiterMiddleware = async(req, res, next) => {
+    try {
+        await rateLimiter.consume(req.ip);
+        next();
+    } catch (rejRes) {
+        res.status(429).json({
+            error: 'Too many requests from this IP, please try again later.',
+            retryAfter: Math.round(rejRes.msBeforeNext / 1000)
+        });
+    }
+};
+
+app.use(rateLimiterMiddleware);
 
 // Logging
 app.use(morgan('combined', { stream: { write: message => logger.info(message.trim()) } }));
