@@ -4,9 +4,16 @@ const logger = require('./logger');
 class Database {
     constructor() {
         this.pool = null;
+        this.isDevelopmentMode = !process.env.DB_HOST;
     }
 
     async connect() {
+        // Skip database connection in development mode if no DB_HOST is set
+        if (this.isDevelopmentMode) {
+            logger.info('Running in development mode without database connection');
+            return;
+        }
+
         try {
             this.pool = new Pool({
                 host: process.env.DB_HOST || 'localhost',
@@ -39,6 +46,11 @@ class Database {
     }
 
     async query(text, params) {
+        if (this.isDevelopmentMode) {
+            logger.warn('Database queries disabled in development mode');
+            return { rows: [], rowCount: 0 };
+        }
+
         const start = Date.now();
         try {
             const res = await this.pool.query(text, params);
@@ -52,6 +64,10 @@ class Database {
     }
 
     async getClient() {
+        if (this.isDevelopmentMode) {
+            logger.warn('Database client requests disabled in development mode');
+            return null;
+        }
         return await this.pool.connect();
     }
 }
