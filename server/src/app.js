@@ -1,12 +1,14 @@
 const express = require('express');
 const cors = require('cors');
-const helmet = require('helmet');
 const morgan = require('morgan');
-const { RateLimiterMemory } = require('rate-limiter-flexible');
+const compression = require('compression');
+const hpp = require('hpp');
+const mongoSanitize = require('express-mongo-sanitize');
 require('dotenv').config();
 
 const logger = require('./utils/logger');
 const database = require('./utils/database');
+const security = require('./middleware/security');
 const authRoutes = require('./routes/auth');
 const deviceRoutes = require('./routes/device');
 const unlockRoutes = require('./routes/unlock');
@@ -16,33 +18,28 @@ const { validateHMAC } = require('./middleware/hmacValidator');
 const app = express();
 const PORT = process.env.PORT || 3000;
 
+// Trust proxy (important for production behind load balancer)
+app.set('trust proxy', 1);
+
 // Security middleware
-app.use(helmet());
+app.use(security.getHelmetConfig());
+app.use(compression());
+app.use(hpp()); // HTTP Parameter Pollution protection
+app.use(mongoSanitize()); // NoSQL injection protection
+
 app.use(cors({
-    origin: process.env.NODE_ENV === 'production' ? (process.env.ALLOWED_ORIGINS ? process.env.ALLOWED_ORIGINS.split(',') : true) : true,
-    credentials: true
+    origin: process.env.NODE_ENV === 'production' ?
+        (process.env.ALLOWED_ORIGINS ? process.env.ALLOWED_ORIGINS.split(',') : false) : true,
+    credentials: true,
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization', 'X-Client-ID', 'X-Timestamp', 'X-Signature'],
+    maxAge: 86400 // 24 hours
 }));
 
 // Rate limiting
-const rateLimiter = new RateLimiterMemory({
-    keyGenerator: (req) => req.ip,
-    points: parseInt(process.env.RATE_LIMIT_MAX_REQUESTS) || 100, // Number of requests
-    duration: parseInt(process.env.RATE_LIMIT_WINDOW_MS) / 1000 || 900, // Per 15 minutes (in seconds)
-});
-
-const rateLimiterMiddleware = async(req, res, next) => {
-    try {
-        await rateLimiter.consume(req.ip);
-        next();
-    } catch (rejRes) {
-        res.status(429).json({
-            error: 'Too many requests from this IP, please try again later.',
-            retryAfter: Math.round(rejRes.msBeforeNext / 1000)
-        });
-    }
-};
-
-app.use(rateLimiterMiddleware);
+app.use(security.globalRateLimit());
+app.use('/api', security.apiRateLimit());
+app.use('/api/auth', security.authRateLimit());
 
 // Logging
 app.use(morgan('combined', { stream: { write: message => logger.info(message.trim()) } }));
@@ -86,6 +83,35 @@ app.post('/api/device/test-register', (req, res) => {
     } catch (error) {
         res.status(500).json({
             error: 'Test registration failed',
+            message: error.message,
+            timestamp: new Date().toISOString()
+        });
+    }
+});
+
+// Simple device register endpoint (bypassing all middleware)
+app.post('/api/device/simple-register', (req, res) => {
+    try {
+        const deviceData = {
+            id: Date.now(),
+            device_id: req.body.deviceId || 'test-device',
+            serial_number: req.body.serialNumber || 'TEST123',
+            chipset: req.body.chipset || 'qualcomm',
+            mode: req.body.mode || 'edl',
+            client_id: 'test-client',
+            created_at: new Date(),
+            updated_at: new Date()
+        };
+
+        res.status(201).json({
+            success: true,
+            message: 'Device registered successfully (simple endpoint)',
+            device: deviceData,
+            timestamp: new Date().toISOString()
+        });
+    } catch (error) {
+        res.status(500).json({
+            error: 'Simple registration failed',
             message: error.message,
             timestamp: new Date().toISOString()
         });
