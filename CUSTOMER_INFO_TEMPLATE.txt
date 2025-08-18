@@ -1,0 +1,43 @@
+========================================
+    PROFESSIONAL PAKET MÜŞTERİ BİLGİLERİ
+========================================
+
+MÜŞTERİ BİLGİLERİ:
+==================
+Firma Adı: [ÖRNEK: Akıllı Telefon Servisi Ltd.]
+Müşteri Adı: [ÖRNEK: Ahmet Yılmaz]
+Email: [ÖRNEK: ahmet@akillitelefon.com]
+Telefon: [ÖRNEK: +90 532 123 4567]
+WhatsApp: [ÖRNEK: +90 532 123 4567]
+
+TEKNIK BİLGİLER:
+================
+İşletim Sistemi: [Windows 10/11]
+Günlük Cihaz Sayısı: [ÖRNEK: 10-50 cihaz]
+Teknik Personel: [ÖRNEK: 2 kişi]
+Mevcut Sistemler: [ÖRNEK: Mi Flash Tool, SP Flash Tool]
+
+LİSANS BİLGİLERİ:
+=================
+Lisans Başlangıç: [ÖRNEK: 2025-01-18]
+Lisans Bitiş: [ÖRNEK: 2026-01-18]
+Makine ID: [Otomatik oluşturulacak]
+Lisans Key: [Otomatik oluşturulacak]
+
+ÖDEME BİLGİLERİ:
+================
+Paket: Professional (₺18,000)
+Ödeme Yöntemi: [Nakit/Havale/Kredi Kartı]
+Ödeme Durumu: [Ödendi/Bekliyor]
+Fatura Adresi: [Tam adres]
+
+DESTEK TERCİHLERİ:
+==================
+Kurulum Şekli: [Uzaktan/Yerinde]
+Eğitim İhtiyacı: [Evet/Hayır]
+WhatsApp Grubu: [Evet/Hayır]
+Acil Destek: [Evet/Hayır]
+
+========================================
+FORM DOLDURULDUKTAN SONRA DEVAM EDİN!
+========================================
