@@ -63,6 +63,35 @@ app.get('/health', (req, res) => {
     });
 });
 
+// Test endpoint for debugging
+app.get('/test', (req, res) => {
+    res.json({
+        message: 'Test endpoint working',
+        timestamp: new Date().toISOString(),
+        headers: req.headers,
+        method: req.method,
+        path: req.path
+    });
+});
+
+// Simple device register test (without database)
+app.post('/api/device/test-register', (req, res) => {
+    try {
+        res.json({
+            success: true,
+            message: 'Test device registration successful',
+            data: req.body,
+            timestamp: new Date().toISOString()
+        });
+    } catch (error) {
+        res.status(500).json({
+            error: 'Test registration failed',
+            message: error.message,
+            timestamp: new Date().toISOString()
+        });
+    }
+});
+
 // API routes
 app.use('/api/auth', authRoutes);
 app.use('/api/device', deviceRoutes);

@@ -33,13 +33,38 @@ router.post('/register', [
     };
 
     try {
-        // Check if device already exists
+        // Development mode - skip database operations
+        if (process.env.NODE_ENV === 'development' && !process.env.DB_HOST) {
+            logger.info('Running in development mode without database');
+
+            const mockDevice = {
+                id: Date.now(),
+                device_id: deviceData.deviceId,
+                serial_number: deviceData.serialNumber,
+                chipset: deviceData.chipset,
+                mode: deviceData.mode,
+                client_id: req.clientId,
+                created_at: new Date(),
+                updated_at: new Date()
+            };
+
+            logger.info('Mock device created', {
+                deviceId: mockDevice.device_id,
+                clientId: req.clientId
+            });
+
+            return res.status(201).json({
+                success: true,
+                device: mockDevice,
+                message: 'Device registered successfully (development mode)'
+            });
+        }
+
+        // Production mode - use database
         const existingDevice = await Device.findByDeviceId(deviceData.deviceId);
 
         if (existingDevice) {
-            // Update last seen
             const updatedDevice = await Device.updateLastSeen(deviceData.deviceId);
-
             logger.info('Device already registered, updated last seen', {
                 deviceId: deviceData.deviceId,
                 clientId: req.clientId
@@ -52,9 +77,7 @@ router.post('/register', [
             });
         }
 
-        // Create new device
         const device = await Device.create(deviceData);
-
         logger.info('New device registered', {
             deviceId: device.device_id,
             serialNumber: device.serial_number,
