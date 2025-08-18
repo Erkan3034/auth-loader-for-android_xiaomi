@@ -7,78 +7,78 @@ echo.
 :: Check if running as administrator
 net session >nul 2>&1
 if %errorLevel% neq 0 (
-    echo [HATA] Bu script yönetici olarak çalıştırılmalıdır!
-    echo Sağ tıklayıp "Yönetici olarak çalıştır" seçin.
+    echo [ERROR] This script must be run as administrator!
+    echo Right-click and select "Run as administrator".
     pause
     exit /b 1
 )
 
-echo [BİLGİ] Xiaomi Unlock System kuruluyor...
+echo [INFO] Installing Xiaomi Unlock System...
 echo.
 
 :: Create directories
-echo [ADIM 1/6] Dizinler oluşturuluyor...
+echo [STEP 1/6] Creating directories...
 if not exist "logs" mkdir logs
 if not exist "uploads" mkdir uploads
 if not exist "backups" mkdir backups
 
 :: Check Node.js
-echo [ADIM 2/6] Node.js kontrol ediliyor...
+echo [STEP 2/6] Checking Node.js...
 node --version >nul 2>&1
 if %errorLevel% neq 0 (
-    echo [HATA] Node.js bulunamadı!
-    echo Node.js 18.x sürümünü https://nodejs.org adresinden indirin.
+    echo [ERROR] Node.js not found!
+    echo Please download Node.js 18.x from https://nodejs.org
     pause
     exit /b 1
 )
 
 :: Check Python
-echo [ADIM 3/6] Python kontrol ediliyor...
+echo [STEP 3/6] Checking Python...
 python --version >nul 2>&1
 if %errorLevel% neq 0 (
-    echo [HATA] Python bulunamadı!
-    echo Python 3.8+ sürümünü https://python.org adresinden indirin.
+    echo [ERROR] Python not found!
+    echo Please download Python 3.8+ from https://python.org
     pause
     exit /b 1
 )
 
 :: Install server dependencies
-echo [ADIM 4/6] Server bağımlılıkları kuruluyor...
+echo [STEP 4/6] Installing server dependencies...
 cd server
 call npm install
 if %errorLevel% neq 0 (
-    echo [HATA] Server bağımlılıkları kurulamadı!
+    echo [ERROR] Failed to install server dependencies!
     pause
     exit /b 1
 )
 
 :: Install client dependencies
-echo [ADIM 5/6] Client bağımlılıkları kuruluyor...
+echo [STEP 5/6] Installing client dependencies...
 cd ../client
 call pip install -r requirements.txt
 if %errorLevel% neq 0 (
-    echo [HATA] Client bağımlılıkları kurulamadı!
+    echo [ERROR] Failed to install client dependencies!
     pause
     exit /b 1
 )
 
 :: Create environment file
-echo [ADIM 6/6] Yapılandırma dosyası oluşturuluyor...
+echo [STEP 6/6] Creating configuration file...
 cd ../server
 if not exist ".env" (
     copy env.example .env
-    echo [BİLGİ] .env dosyası oluşturuldu. Lütfen yapılandırın.
+    echo [INFO] .env file created. Please configure it.
 )
 
 echo.
 echo ================================
-echo     KURULUM TAMAMLANDI!
+echo     INSTALLATION COMPLETED!
 echo ================================
 echo.
-echo Kullanım:
-echo 1. Server başlatma: cd server ^&^& npm start
-echo 2. Client başlatma: cd client ^&^& python main.py
+echo Usage:
+echo 1. Start server: cd server ^&^& npm start
+echo 2. Start client: cd client ^&^& python main.py
 echo.
-echo Detaylı kullanım için CUSTOMER_GUIDE.md dosyasını okuyun.
+echo For detailed usage, read CUSTOMER_GUIDE.md file.
 echo.
 pause

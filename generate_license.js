@@ -60,6 +60,7 @@ class ProfessionalLicenseGenerator {
             contactPerson: customerInfo.customerName,
             email: customerInfo.email,
             phone: customerInfo.phone,
+            xiaomiAuthorizedId: customerInfo.xiaomiId || 'XIAOMI_ID_TO_BE_PROVIDED',
             machineId: machineId,
             expiry: expiry.toISOString(),
             issued: now.toISOString(),
@@ -72,7 +73,8 @@ class ProfessionalLicenseGenerator {
                 'remote_installation',
                 'one_year_support',
                 'all_updates_included',
-                'priority_support'
+                'priority_support',
+                'xiaomi_authorized_unlock'
             ],
             supportLevel: 'Professional',
             maxDevicesPerDay: 100,

@@ -1,43 +1,50 @@
 ========================================
-    PROFESSIONAL PAKET MÜŞTERİ BİLGİLERİ
+    PROFESSIONAL PACKAGE CUSTOMER INFO
 ========================================
 
-MÜŞTERİ BİLGİLERİ:
-==================
-Firma Adı: [ÖRNEK: Akıllı Telefon Servisi Ltd.]
-Müşteri Adı: [ÖRNEK: Ahmet Yılmaz]
-Email: [ÖRNEK: ahmet@akillitelefon.com]
-Telefon: [ÖRNEK: +90 532 123 4567]
-WhatsApp: [ÖRNEK: +90 532 123 4567]
+CUSTOMER INFORMATION:
+====================
+Company Name: [EXAMPLE: Smart Phone Service Ltd.]
+Customer Name: [EXAMPLE: John Smith]
+Email: [EXAMPLE: john@smartphoneservice.com]
+Phone: [EXAMPLE: +1 555 123 4567]
+WhatsApp: [EXAMPLE: +1 555 123 4567]
 
-TEKNIK BİLGİLER:
-================
-İşletim Sistemi: [Windows 10/11]
-Günlük Cihaz Sayısı: [ÖRNEK: 10-50 cihaz]
-Teknik Personel: [ÖRNEK: 2 kişi]
-Mevcut Sistemler: [ÖRNEK: Mi Flash Tool, SP Flash Tool]
+XIAOMI AUTHORIZATION INFO:
+=========================
+Authorized Xiaomi ID: [TO BE PROVIDED BY CUSTOMER - IMPORTANT!]
+Xiaomi Account Email: [Email of Xiaomi account]
+Authorization Level: [Authorized Dealer/Service Center]
+Authorization Certificate: [Yes/No]
 
-LİSANS BİLGİLERİ:
-=================
-Lisans Başlangıç: [ÖRNEK: 2025-01-18]
-Lisans Bitiş: [ÖRNEK: 2026-01-18]
-Makine ID: [Otomatik oluşturulacak]
-Lisans Key: [Otomatik oluşturulacak]
+TECHNICAL INFORMATION:
+=====================
+Operating System: [Windows 10/11]
+Daily Device Count: [EXAMPLE: 10-50 devices]
+Technical Staff: [EXAMPLE: 2 people]
+Current Systems: [EXAMPLE: Mi Flash Tool, SP Flash Tool]
 
-ÖDEME BİLGİLERİ:
-================
-Paket: Professional (₺18,000)
-Ödeme Yöntemi: [Nakit/Havale/Kredi Kartı]
-Ödeme Durumu: [Ödendi/Bekliyor]
-Fatura Adresi: [Tam adres]
+LICENSE INFORMATION:
+===================
+License Start Date: [EXAMPLE: 2025-01-18]
+License End Date: [EXAMPLE: 2026-01-18]
+Machine ID: [Auto-generated]
+License Key: [Auto-generated]
 
-DESTEK TERCİHLERİ:
-==================
-Kurulum Şekli: [Uzaktan/Yerinde]
-Eğitim İhtiyacı: [Evet/Hayır]
-WhatsApp Grubu: [Evet/Hayır]
-Acil Destek: [Evet/Hayır]
+PAYMENT INFORMATION:
+===================
+Package: Professional ($500)
+Payment Method: [Cash/Bank Transfer/Credit Card]
+Payment Status: [Paid/Pending]
+Billing Address: [Full address]
+
+SUPPORT PREFERENCES:
+===================
+Installation Type: [Remote/On-site]
+Training Required: [Yes/No]
+WhatsApp Group: [Yes/No]
+Emergency Support: [Yes/No]
 
 ========================================
-FORM DOLDURULDUKTAN SONRA DEVAM EDİN!
+CONTINUE AFTER COMPLETING THIS FORM!
 ========================================

@@ -93,32 +93,7 @@ copy START_SYSTEM.bat "%PACKAGE_NAME%\QUICK_START.bat"
 
 :: Create professional installation script
 echo [9/10] Creating professional installation script...
-echo @echo off > "%PACKAGE_NAME%\INSTALL_PROFESSIONAL.bat"
-echo title Xiaomi Unlock System - Professional Installation >> "%PACKAGE_NAME%\INSTALL_PROFESSIONAL.bat"
-echo echo. >> "%PACKAGE_NAME%\INSTALL_PROFESSIONAL.bat"
-echo echo ======================================== >> "%PACKAGE_NAME%\INSTALL_PROFESSIONAL.bat"
-echo echo   XIAOMI UNLOCK PROFESSIONAL INSTALLATION >> "%PACKAGE_NAME%\INSTALL_PROFESSIONAL.bat"
-echo echo ======================================== >> "%PACKAGE_NAME%\INSTALL_PROFESSIONAL.bat"
-echo echo. >> "%PACKAGE_NAME%\INSTALL_PROFESSIONAL.bat"
-echo echo [1/5] Installing server dependencies... >> "%PACKAGE_NAME%\INSTALL_PROFESSIONAL.bat"
-echo cd server >> "%PACKAGE_NAME%\INSTALL_PROFESSIONAL.bat"
-echo call npm install >> "%PACKAGE_NAME%\INSTALL_PROFESSIONAL.bat"
-echo cd .. >> "%PACKAGE_NAME%\INSTALL_PROFESSIONAL.bat"
-echo echo. >> "%PACKAGE_NAME%\INSTALL_PROFESSIONAL.bat"
-echo echo [2/5] Installing client dependencies... >> "%PACKAGE_NAME%\INSTALL_PROFESSIONAL.bat"
-echo cd client >> "%PACKAGE_NAME%\INSTALL_PROFESSIONAL.bat"
-echo call pip install -r requirements.txt >> "%PACKAGE_NAME%\INSTALL_PROFESSIONAL.bat"
-echo cd .. >> "%PACKAGE_NAME%\INSTALL_PROFESSIONAL.bat"
-echo echo. >> "%PACKAGE_NAME%\INSTALL_PROFESSIONAL.bat"
-echo echo [3/5] Setting up configuration... >> "%PACKAGE_NAME%\INSTALL_PROFESSIONAL.bat"
-echo copy server\.env.production server\.env >> "%PACKAGE_NAME%\INSTALL_PROFESSIONAL.bat"
-echo echo. >> "%PACKAGE_NAME%\INSTALL_PROFESSIONAL.bat"
-echo echo [4/5] Creating shortcuts... >> "%PACKAGE_NAME%\INSTALL_PROFESSIONAL.bat"
-echo echo Installation completed successfully! >> "%PACKAGE_NAME%\INSTALL_PROFESSIONAL.bat"
-echo echo. >> "%PACKAGE_NAME%\INSTALL_PROFESSIONAL.bat"
-echo echo [5/5] Ready to start! >> "%PACKAGE_NAME%\INSTALL_PROFESSIONAL.bat"
-echo echo Run QUICK_START.bat to begin >> "%PACKAGE_NAME%\INSTALL_PROFESSIONAL.bat"
-echo pause >> "%PACKAGE_NAME%\INSTALL_PROFESSIONAL.bat"
+copy INSTALL_PROFESSIONAL_EN.bat "%PACKAGE_NAME%\INSTALL_PROFESSIONAL.bat"
 
 :: Create package info file
 echo [10/10] Creating package information...

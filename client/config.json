@@ -10,6 +10,12 @@
         "hmac_secret": "your_hmac_secret_key_here_change_in_production",
         "user_agent": "XiaomiUnlockClient/1.0.0"
     },
+    "xiaomi": {
+        "authorized_id": "CUSTOMER_XIAOMI_ID_HERE",
+        "api_endpoint": "https://unlock.update.miui.com/api/v1",
+        "auth_timeout": 30,
+        "verify_ssl": true
+    },
     "device": {
         "detection_timeout": 10,
         "connection_timeout": 30,

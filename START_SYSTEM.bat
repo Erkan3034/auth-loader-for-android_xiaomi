@@ -8,32 +8,32 @@ echo ========================================
 echo.
 
 :: Start server in background
-echo [BİLGİ] Server başlatılıyor...
+echo [INFO] Starting server...
 cd server
 start "Xiaomi Server" /min cmd /c "npm start"
 
 :: Wait for server to start
-echo [BİLGİ] Server başlatılması bekleniyor...
+echo [INFO] Waiting for server to start...
 timeout /t 5 /nobreak >nul
 
 :: Check if server is running
-echo [BİLGİ] Server durumu kontrol ediliyor...
+echo [INFO] Checking server status...
 curl -s http://localhost:3000/health >nul 2>&1
 if %errorLevel% equ 0 (
-    echo [BAŞARILI] Server çalışıyor! ✓
+    echo [SUCCESS] Server is running! ✓
 ) else (
-    echo [UYARI] Server henüz hazır değil, biraz daha bekleyin...
+    echo [WARNING] Server not ready yet, please wait a moment...
 )
 
 :: Start client
 echo.
-echo [BİLGİ] Client başlatılıyor...
+echo [INFO] Starting client...
 cd ../client
 python main.py
 
 :: Cleanup on exit
 echo.
-echo [BİLGİ] Sistem kapatılıyor...
+echo [INFO] System shutting down...
 taskkill /f /fi "WindowTitle eq Xiaomi Server*" >nul 2>&1
-echo [BİLGİ] Temizlik tamamlandı.
+echo [INFO] Cleanup completed.
 pause
